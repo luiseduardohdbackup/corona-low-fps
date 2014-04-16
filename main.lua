@@ -76,22 +76,72 @@ rock2:setStrokeColor( 1,0,0 );
 
 transition.to( mainGroup, {x=_C.x,time=4000,iterations=-1} )
 
+
+
+local testGradients = true;
+
+local paint = {
+	type = "gradient",
+    color1 = {1,1,1},
+    color2 = {0,0,0},
+    direction = "left"
+}
+
+local amountToTest = 10;
+
+local testAlphas = {}
+local testGradients = {}
+
+for i=1,amountToTest do
+	testAlphas[i] = display.newRect( _C.x, _C.y, _W, _H );
+	testGradients[i] = display.newRect( _C.x, _C.y, _W, _H );
+
+	testGradients[i].fill = paint;
+	testAlphas[i].alpha = 0.01;
+
+	testGradients[i].isVisible = false;
+	testAlphas[i].isVisible = false;
+end
+
+local debugText = display.newText( "Nothing",_C.x,100,"Arial",20 );
+
+local display = 0;
+timer.performWithDelay( 3000, function() 
+	display = display + 1;
+
+	if(display == 1)then
+		debugText.text = "0.01 alpha"
+		for i=1,amountToTest do
+			testGradients[i].isVisible = false;
+			testAlphas[i].isVisible = true;
+		end
+	end
+
+	if(display == 2)then
+		debugText.text = "Gradients"
+		for i=1,amountToTest do
+			testGradients[i].isVisible = true;
+			testAlphas[i].isVisible = false;
+		end
+	end
+
+	if(display == 3)then
+		debugText.text = "Nothing"
+		for i=1,amountToTest do
+			testGradients[i].isVisible = false;
+			testAlphas[i].isVisible = false;
+		end
+		display = 0;
+	end
+
+end,-1);
+
+
+
 local fps = require("fps")
 local performance = fps.PerformanceOutput.new();
 performance.group.x, performance.group.y = 0,_H-100;
 performance.alpha = 0.6;
-
-
-
-local amountToTest = 10;
-
-local tests = {}
-for i=1,amountToTest do
-	tests[i] = display.newRect( _C.x, _C.y, _W, _H );
-	tests[i].alpha = 0.01;
-
-end
-
 
 
 
