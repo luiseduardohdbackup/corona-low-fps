@@ -97,20 +97,21 @@ for i=1,amountToTest do
 	testGradients[i] = display.newRect( _C.x, _C.y, _W, _H );
 
 	testGradients[i].fill = paint;
-	testAlphas[i].alpha = 0.01;
+	-- testAlphas[i].alpha = 0.01;
 
 	testGradients[i].isVisible = false;
 	testAlphas[i].isVisible = false;
 end
 
 local debugText = display.newText( "Nothing",_C.x,100,"Arial",20 );
+debugText:setFillColor( 0,1,0 )
 
 local display = 0;
 timer.performWithDelay( 3000, function() 
 	display = display + 1;
 
 	if(display == 1)then
-		debugText.text = "0.01 alpha"
+		debugText.text = "10 rectangles"
 		for i=1,amountToTest do
 			testGradients[i].isVisible = false;
 			testAlphas[i].isVisible = true;
@@ -118,7 +119,7 @@ timer.performWithDelay( 3000, function()
 	end
 
 	if(display == 2)then
-		debugText.text = "Gradients"
+		debugText.text = "10 gradients"
 		for i=1,amountToTest do
 			testGradients[i].isVisible = true;
 			testAlphas[i].isVisible = false;
